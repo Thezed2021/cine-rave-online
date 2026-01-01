@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
     <title>Cine Rave</title>
+    
+    <meta property="og:site_name" content="Cine Rave">
+    <meta property="og:title" content="Cine Rave">
+    <meta property="og:description" content="Assista filmes e séries com seus amigos.">
+    <meta property="og:image" content="<%= destaque ? destaque.capa : '' %>">
+    <meta property="og:type" content="website">
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
@@ -68,21 +75,12 @@
         .btn-hero { padding: 10px 30px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; background: white; color: black; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.2s; }
         .btn-hero:active { transform: scale(0.95); }
 
-        /* --- FAIXA DE AVISO (NOVO ESTILO) --- */
-        .alert-section {
-            padding: 0 4%; /* Mesma margem lateral dos cards */
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
+        /* --- FAIXA DE AVISO --- */
+        .alert-section { padding: 0 4%; margin-top: 20px; margin-bottom: 10px; }
         .alert-box {
-            background: #252525;
-            border-left: 4px solid var(--accent);
-            padding: 15px 20px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: #252525; border-left: 4px solid var(--accent);
+            padding: 15px 20px; border-radius: 6px; display: flex; align-items: center;
+            gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .alert-icon { font-size: 20px; color: var(--accent); }
         .alert-text { font-size: 14px; color: #ddd; line-height: 1.4; }
@@ -102,7 +100,7 @@
             .alert-box { padding: 12px; }
         }
 
-        /* --- MODAL: SOBRE NÓS (Mantido) --- */
+        /* --- MODAL --- */
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
         .modal-box { background: #1f1f1f; border: 1px solid #333; border-radius: 12px; padding: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative; animation: popIn 0.3s; }
         .modal-title { color: var(--accent); font-size: 22px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
