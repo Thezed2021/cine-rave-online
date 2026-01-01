@@ -1,0 +1,54 @@
+[
+  {
+    "tipo": "serie",
+    "id": "1396",
+    "titulo": "Breaking Bad",
+    "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+    "sinopse": "Ao saber que tem câncer, um professor passa a fabricar metanfetamina pelo futuro da família, mudando o destino de todos.",
+    "destaque": false,
+    "temporadas": [
+      {
+        "numero": 1,
+        "episodios": [
+          {
+            "num": "E1",
+            "nome": "Episódio 1",
+            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
+            "capa": "https://image.tmdb.org/t/p/w500/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg"
+          },
+          {
+            "num": "E2",
+            "nome": "Episódio 2",
+            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
+            "capa": "https://image.tmdb.org/t/p/w500/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg"
+          }
+        ]
+      },
+      {
+        "numero": 2,
+        "episodios": [
+          {
+            "num": "E1",
+            "nome": "Episódio 1",
+            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
+            "capa": "https://image.tmdb.org/t/p/w500/6Uo1z56uKnX60JXvYYFWACHR31u.jpg"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "tipo": "filme",
+    "id": "47933",
+    "titulo": "Independence Day: O Ressurgimento",
+    "capa": "https://image.tmdb.org/t/p/w500/dvFIe1y0GtkDxxVlw2BtMKyXvo0.jpg",
+    "sinopse": "Duas décadas depois do devastador ataque alienígena do Dia da Independência, a Terra enfrenta uma nova ameaça que vem diretamente do espaço. Uma nova geração de pilotos é convocada para combater os inimigos e garantir a liberdade da humanidade.",
+    "link": "https://vods1.watchingvs.com/m/Independence%20Day:%20O%20Ressurgimento_2016_tt1628841.mp4",
+    "destaque": true,
+    "generos": [
+      "Aventura",
+      "Ação",
+      "Ficção Científica"
+    ]
+  }
+]

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>StreamFlix</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        :root { --bg-color: #141414; --sidebar-bg: #000000; --accent: #E50914; --text-main: #ffffff; --text-sec: #b3b3b3; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { 
+            margin: 0; background-color: var(--bg-color); color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            overflow-x: hidden; padding-top: env(safe-area-inset-top); 
+            user-select: none; /* App-like feel */
+        }
+
+        /* --- SCROLLBAR (PC) --- */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #141414; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* --- SIDEBAR --- */
+        .mobile-header { display: none; background: #000; padding: 15px 20px; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .mobile-logo { color: var(--accent); font-weight: 800; font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .hamburger-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; padding: 5px; }
+        
+        .sidebar { width: 80px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 300; border-right: 1px solid #222; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar.active { transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.7); }
+        
+        .logo-pc { display: none; color: var(--accent); font-weight: 800; font-size: 24px; margin-bottom: 40px; }
+        .menu-item { color: var(--text-sec); font-size: 16px; margin-bottom: 25px; display: flex; align-items: center; cursor: pointer; width: 100%; padding: 12px; transition: 0.2s; border-radius: 8px; }
+        .menu-item:hover { color: white; background: #1a1a1a; }
+        .menu-text { display: none; opacity: 0; transition: opacity 0.2s; white-space: nowrap; margin-left: 15px; }
+        .close-sidebar-btn { display: none; align-self: flex-end; margin: 10px 20px; font-size: 28px; cursor: pointer; }
+
+        @media (min-width: 769px) { 
+            .sidebar:hover { width: 240px; align-items: flex-start; padding-left: 20px; } 
+            .logo-pc { display: block; } 
+            .sidebar:hover .menu-text { display: inline-block; opacity: 1; } 
+        }
+        @media (max-width: 768px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); width: 85%; max-width: 320px; align-items: flex-start; padding-left: 25px; } 
+            .sidebar.active .close-sidebar-btn { display: block; } 
+            .sidebar.active .logo-pc { display: block; margin-bottom: 20px; }
+            .sidebar.active .menu-text { display: inline-block; opacity: 1; color: white; font-weight: 500; }
+            .main-content { margin-left: 0; } 
+        }
+
+        /* --- CONTEÚDO --- */
+        .main-content { margin-left: 80px; width: calc(100% - 80px); min-height: 100vh; padding-bottom: 50px; }
+        .hero { height: 65vh; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-color) 0%, transparent 85%), linear-gradient(to right, rgba(0,0,0,0.9) 0%, transparent 60%); }
+        .hero-content { position: relative; z-index: 2; padding-left: 50px; max-width: 650px; padding-right: 20px; }
+        .hero-title { font-size: clamp(32px, 5vw, 60px); font-weight: 900; margin-bottom: 15px; text-transform: uppercase; line-height: 1.1; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-desc { font-size: clamp(14px, 2vw, 18px); color: #ddd; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        
+        .btn-hero { 
+            padding: 12px 35px; font-size: 18px; font-weight: bold; border: none; border-radius: 6px; 
+            cursor: pointer; background: white; color: black; display: inline-flex; align-items: center; gap: 10px; 
+            transition: transform 0.2s; 
+        }
+        .btn-hero:active { transform: scale(0.95); }
+
+        /* --- CARDS --- */
+        .category-section { padding: 20px 40px; }
+        .category-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 15px; color: #e5e5e5; }
+        .cards-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 20px; scroll-behavior: smooth; }
+        
+        .card { 
+            min-width: 150px; height: 225px; border-radius: 8px; overflow: hidden; position: relative; 
+            cursor: pointer; flex-shrink: 0; background: #222; transition: transform 0.3s, opacity 0.3s; 
+        }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Efeito Hover só no PC */
+        @media (min-width: 769px) { .card:hover { transform: scale(1.1); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); } }
+        /* Ajuste Mobile */
+        @media (max-width: 768px) { 
+            .hero { height: 55vh; }
+            .hero-content { padding-left: 20px; padding-right: 20px; }
+            .category-section { padding: 15px 20px; }
+            .card { min-width: 120px; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="mobile-logo">StreamFlix</div>
+        <button class="hamburger-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-sidebar-btn" onclick="toggleMenu()">&times;</div>
+        <div class="logo-pc">StreamFlix</div>
+        <div style="width: 100%; margin-top: 20px;">
+            <div class="menu-item"><i class="fas fa-home"></i> <span class="menu-text">Início</span></div>
+            <div class="menu-item"><i class="fas fa-film"></i> <span class="menu-text">Filmes</span></div>
+            <div class="menu-item"><i class="fas fa-tv"></i> <span class="menu-text">Séries</span></div>
+            <div class="menu-item" onclick="window.open('https://discord.gg/JZrAHZ4e')"><i class="fab fa-discord"></i> <span class="menu-text">Discord</span></div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <% if (destaque) { %>
+        <div class="hero" style="background-image: url('<%= destaque.capa %>');">
+            <div class="hero-content">
+                <div class="hero-title"><%= destaque.titulo %></div>
+                <div class="hero-desc"><%= destaque.sinopse %></div>
+                <button class="btn-hero" onclick="irParaDetalhes('<%= destaque.originalIndex %>')">
+                    <i class="fas fa-play"></i> Assistir
+                </button>
+            </div>
+        </div>
+        <% } %>
+
+        <% if (filmes.length > 0) { %>
+        <div class="category-section">
+            <div class="category-title">Filmes</div>
+            <div class="cards-row">
+                <% filmes.forEach(filme => { %>
+                    <div class="card" onclick="irParaDetalhes('<%= filme.originalIndex %>')">
+                        <img src="<%= filme.capa %>" loading="lazy">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+
+        <% if (series.length > 0) { %>
+        <div class="category-section">
+            <div class="category-title">Séries</div>
+            <div class="cards-row">
+                <% series.forEach(serie => { %>
+                    <div class="card" onclick="irParaDetalhes('<%= serie.originalIndex %>')">
+                        <img src="<%= serie.capa %>" loading="lazy">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+        function irParaDetalhes(id) { window.location.href = `/detalhes?id=${id}`; }
+    </script>
+</body>
+</html>
