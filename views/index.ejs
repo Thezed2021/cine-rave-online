@@ -56,82 +56,59 @@
         /* --- CONTEÚDO PRINCIPAL --- */
         .main-content { margin-left: 80px; width: calc(100% - 80px); min-height: 100vh; padding-bottom: 50px; }
         
-        /* Ajuste do Banner (Hero) para não estourar */
         .hero { 
-            height: 60vh; /* Altura fixa confortável */
-            background-size: cover; background-position: center; position: relative; display: flex; align-items: center; 
+            height: 60vh; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; 
         }
         .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-color) 0%, transparent 90%), linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 60%); }
         
-        .hero-content { 
-            position: relative; z-index: 2; padding-left: 4%; padding-right: 20px; max-width: 800px; width: 100%;
-        }
+        .hero-content { position: relative; z-index: 2; padding-left: 4%; padding-right: 20px; max-width: 800px; width: 100%; }
+        .hero-title { font-size: clamp(28px, 6vw, 60px); font-weight: 900; margin-bottom: 10px; text-transform: uppercase; line-height: 1.1; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-desc { font-size: clamp(14px, 2.5vw, 18px); color: #ddd; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); max-width: 600px; }
         
-        /* Fontes ajustáveis (Clamp) para nunca quebrar */
-        .hero-title { 
-            font-size: clamp(28px, 6vw, 60px); 
-            font-weight: 900; margin-bottom: 10px; text-transform: uppercase; 
-            line-height: 1.1; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); 
-        }
-        .hero-desc { 
-            font-size: clamp(14px, 2.5vw, 18px); 
-            color: #ddd; margin-bottom: 20px; 
-            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); max-width: 600px;
-        }
-        
-        .btn-hero { 
-            padding: 10px 30px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; 
-            cursor: pointer; background: white; color: black; display: inline-flex; align-items: center; gap: 10px; 
-            transition: transform 0.2s; 
-        }
+        .btn-hero { padding: 10px 30px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; background: white; color: black; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.2s; }
         .btn-hero:active { transform: scale(0.95); }
 
-        /* --- CARDS (Carrossel) --- */
+        /* --- FAIXA DE AVISO (NOVO ESTILO) --- */
+        .alert-section {
+            padding: 0 4%; /* Mesma margem lateral dos cards */
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .alert-box {
+            background: #252525;
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .alert-icon { font-size: 20px; color: var(--accent); }
+        .alert-text { font-size: 14px; color: #ddd; line-height: 1.4; }
+        .alert-text strong { color: white; }
+
+        /* --- CARDS --- */
         .category-section { padding: 20px 4%; }
         .category-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; color: #e5e5e5; }
-        
-        .cards-row { 
-            display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; scroll-behavior: smooth; 
-            -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
-        }
-        
-        .card { 
-            min-width: 140px; height: 210px; border-radius: 6px; overflow: hidden; position: relative; 
-            cursor: pointer; flex-shrink: 0; background: #222; transition: transform 0.3s; 
-        }
+        .cards-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .card { min-width: 140px; height: 210px; border-radius: 6px; overflow: hidden; position: relative; cursor: pointer; flex-shrink: 0; background: #222; transition: transform 0.3s; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         
         @media (min-width: 769px) { .card:hover { transform: scale(1.1); z-index: 10; } }
         @media (max-width: 768px) { 
             .hero { height: 50vh; }
             .card { min-width: 120px; height: 180px; }
+            .alert-box { padding: 12px; }
         }
 
-        /* --- MODAIS (Sobre Nós & Aviso) --- */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.85); z-index: 2000; 
-            align-items: center; justify-content: center; backdrop-filter: blur(5px);
-            padding: 20px;
-        }
-        .modal-box {
-            background: #1f1f1f; border: 1px solid #333; border-radius: 12px;
-            padding: 25px; width: 100%; max-width: 450px; text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative;
-        }
+        /* --- MODAL: SOBRE NÓS (Mantido) --- */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
+        .modal-box { background: #1f1f1f; border: 1px solid #333; border-radius: 12px; padding: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative; animation: popIn 0.3s; }
         .modal-title { color: var(--accent); font-size: 22px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
         .modal-text { color: #ccc; font-size: 15px; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap; }
-        .btn-fechar {
-            background: var(--accent); color: white; border: none; padding: 12px 30px;
-            font-weight: bold; border-radius: 30px; cursor: pointer; text-transform: uppercase; font-size: 14px;
-        }
-        .close-icon {
-            position: absolute; top: 15px; right: 15px; color: #666; font-size: 24px; cursor: pointer;
-        }
-        
-        /* Animação do Modal */
-        .modal-box { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-fechar { background: var(--accent); color: white; border: none; padding: 12px 30px; font-weight: bold; border-radius: 30px; cursor: pointer; text-transform: uppercase; font-size: 14px; }
+        .close-icon { position: absolute; top: 15px; right: 15px; color: #666; font-size: 24px; cursor: pointer; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     </style>
@@ -146,12 +123,10 @@
     <div class="sidebar" id="sidebar">
         <div class="close-sidebar-btn" onclick="toggleMenu()">&times;</div>
         <div class="logo-pc">CINE RAVE</div>
-        
         <div style="width: 100%; margin-top: 20px;">
             <div class="menu-item" onclick="abrirModal('modal-sobre')">
                 <i class="fas fa-info-circle"></i> <span class="menu-text">Sobre Nós</span>
             </div>
-            
             <div class="menu-item" onclick="window.open('https://discord.gg/JZrAHZ4e')">
                 <i class="fab fa-discord"></i> <span class="menu-text">Discord</span>
             </div>
@@ -171,6 +146,15 @@
             </div>
         </div>
         <% } %>
+
+        <div class="alert-section">
+            <div class="alert-box">
+                <i class="fas fa-bell alert-icon"></i>
+                <div class="alert-text">
+                    <strong>Aviso:</strong> Bem-vindo ao Cine Rave! Para assistir com amigos, recomendamos usar o app oficial Rave. Se o vídeo travar, use o botão de suporte no player.
+                </div>
+            </div>
+        </div>
 
         <% if (filmes.length > 0) { %>
         <div class="category-section">
@@ -204,39 +188,21 @@
             <div class="close-icon" onclick="fecharModal('modal-sobre')">&times;</div>
             <div class="modal-title">Sobre o Cine Rave</div>
             <div class="modal-text">
-Somos uma plataforma dedicada a trazer o melhor do entretenimento para suas sessões no Rave.
-
-Nossa missão é facilitar o acesso a filmes e séries de qualidade, tudo otimizado para assistir com os amigos.
-</div>
+Somos uma plataforma dedicada a trazer o melhor do entretenimento.
+Facilitamos o acesso a filmes e séries de qualidade, tudo otimizado para o Rave.
+            </div>
             <button class="btn-fechar" onclick="fecharModal('modal-sobre')">Fechar</button>
-        </div>
-    </div>
-
-    <div id="modal-aviso" class="modal-overlay" style="display: flex;"> <div class="modal-box">
-            <div class="modal-title">⚠️ Aviso Importante</div>
-            <div class="modal-text">
-Bem-vindo ao Cine Rave!
-
-Para uma melhor experiência, recomendamos usar o aplicativo Rave. Se o vídeo demorar, use o botão de suporte no player.
-
-Bom filme!
-</div>
-            <button class="btn-fechar" onclick="fecharModal('modal-aviso')">Entendi</button>
         </div>
     </div>
 
     <script>
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         function irParaDetalhes(id) { window.location.href = `/detalhes?id=${id}`; }
-        
-        // Funções dos Modais
         function abrirModal(id) {
             document.getElementById(id).style.display = 'flex';
-            if(window.innerWidth <= 768) toggleMenu(); // Fecha menu se estiver no mobile
+            if(window.innerWidth <= 768) toggleMenu();
         }
-        function fecharModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
+        function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
     </script>
 </body>
 </html>
