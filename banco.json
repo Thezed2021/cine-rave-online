@@ -165,6 +165,18 @@
                         "sinopse": ""
                     }
                 ]
+            },
+            {
+                "numero": 3,
+                "episodios": [
+                    {
+                        "num": 1,
+                        "nome": "Episódio 1",
+                        "link": "",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    }
+                ]
             }
         ],
         "genero": "drama, crime, acao"
