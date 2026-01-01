@@ -1,54 +1,86 @@
 [
-  {
-    "tipo": "serie",
-    "id": "1396",
-    "titulo": "Breaking Bad",
-    "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
-    "sinopse": "Ao saber que tem câncer, um professor passa a fabricar metanfetamina pelo futuro da família, mudando o destino de todos.",
-    "destaque": false,
-    "temporadas": [
-      {
-        "numero": 1,
-        "episodios": [
-          {
-            "num": "E1",
-            "nome": "Episódio 1",
-            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
-            "capa": "https://image.tmdb.org/t/p/w500/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg"
-          },
-          {
-            "num": "E2",
-            "nome": "Episódio 2",
-            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
-            "capa": "https://image.tmdb.org/t/p/w500/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg"
-          }
+    {
+        "titulo": "Supernatural",
+        "tipo": "serie",
+        "capa": "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg",
+        "genero": "",
+        "sinopse": "Os irmãos Dean e Sam vasculham o país em busca de atividades paranormais, brigando com demônios, fantasmas e monstros no caminho.",
+        "destaque": false,
+        "temporadas": []
+    },
+    {
+        "tipo": "serie",
+        "id": "1396",
+        "titulo": "Breaking Bad",
+        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+        "sinopse": "Ao saber que tem câncer, um professor passa a fabricar metanfetamina pelo futuro da família, mudando o destino de todos.",
+        "destaque": true,
+        "temporadas": [
+            {
+                "numero": 1,
+                "episodios": [
+                    {
+                        "num": "E1",
+                        "nome": "Episódio 1",
+                        "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg"
+                    },
+                    {
+                        "num": "E2",
+                        "nome": "Episódio 2",
+                        "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg"
+                    }
+                ]
+            },
+            {
+                "numero": 2,
+                "episodios": [
+                    {
+                        "num": "E1",
+                        "nome": "Episódio 1",
+                        "link": "http://awnagk.gviudclrb.com/vod/773583D3111443088517E08ABEA36754_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/6Uo1z56uKnX60JXvYYFWACHR31u.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 2,
+                        "nome": "Episódio 2",
+                        "link": "http://awnagk.gviudclrb.com/vod/5EBF8C39E8EA4CD4892B4E40E1A95D1E_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_q3TVktNQwDMj&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=5EBF8C39E8EA4CD4892B4E40E1A95D1E&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=p31vxWOASAFDuIZfgRzxJCmCawk=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 3,
+                        "nome": "Episódio 3",
+                        "link": "http://awnagk.gviudclrb.com/vod/791D969854054CBF962D9230F1000423_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 4,
+                        "nome": "Episódio 4",
+                        "link": "http://awnagk.gviudclrb.com/vod/39C16B32A6F5436098B01C505A1A4113_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_5S0hWDau5XS&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=39C16B32A6F5436098B01C505A1A4113&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=7VSqsNyxabRlFQ7aGSRsYqQjIdI=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    }
+                ]
+            }
+        ],
+        "genero": ""
+    },
+    {
+        "tipo": "filme",
+        "id": "47933",
+        "titulo": "Independence Day: O Ressurgimento",
+        "capa": "https://image.tmdb.org/t/p/w500/dvFIe1y0GtkDxxVlw2BtMKyXvo0.jpg",
+        "sinopse": "Duas décadas depois do devastador ataque alienígena do Dia da Independência, a Terra enfrenta uma nova ameaça que vem diretamente do espaço. Uma nova geração de pilotos é convocada para combater os inimigos e garantir a liberdade da humanidade.",
+        "link": "https://vods1.watchingvs.com/m/Independence%20Day:%20O%20Ressurgimento_2016_tt1628841.mp4",
+        "destaque": true,
+        "generos": [
+            "Aventura",
+            "Ação",
+            "Ficção Científica"
         ]
-      },
-      {
-        "numero": 2,
-        "episodios": [
-          {
-            "num": "E1",
-            "nome": "Episódio 1",
-            "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
-            "capa": "https://image.tmdb.org/t/p/w500/6Uo1z56uKnX60JXvYYFWACHR31u.jpg"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "tipo": "filme",
-    "id": "47933",
-    "titulo": "Independence Day: O Ressurgimento",
-    "capa": "https://image.tmdb.org/t/p/w500/dvFIe1y0GtkDxxVlw2BtMKyXvo0.jpg",
-    "sinopse": "Duas décadas depois do devastador ataque alienígena do Dia da Independência, a Terra enfrenta uma nova ameaça que vem diretamente do espaço. Uma nova geração de pilotos é convocada para combater os inimigos e garantir a liberdade da humanidade.",
-    "link": "https://vods1.watchingvs.com/m/Independence%20Day:%20O%20Ressurgimento_2016_tt1628841.mp4",
-    "destaque": true,
-    "generos": [
-      "Aventura",
-      "Ação",
-      "Ficção Científica"
-    ]
-  }
+    }
 ]
