@@ -21,15 +21,52 @@
                 "episodios": [
                     {
                         "num": "E1",
-                        "nome": "Episódio 1",
+                        "nome": " T1 Episódio 1 Cine Rave",
                         "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
-                        "capa": "https://image.tmdb.org/t/p/w500/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg"
+                        "capa": "https://image.tmdb.org/t/p/w500/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg",
+                        "sinopse": ""
                     },
                     {
                         "num": "E2",
-                        "nome": "Episódio 2",
+                        "nome": "T1 Episódio 2 Cine Rave",
                         "link": "https://awnagk.gviudclrb.com/vod/C6A7DF2630414DBB8A899FE2A348FFE7_media.mp4",
-                        "capa": "https://image.tmdb.org/t/p/w500/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg"
+                        "capa": "https://image.tmdb.org/t/p/w500/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 3,
+                        "nome": "T1 Episódio 3 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/0005755263794E9D81D3BD59C32DD8DD_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 4,
+                        "nome": "T1 Episódio 4 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/68F014DEDFF7408680A6CB944D9F2148_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_Gkhil4qmIcBV&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=68F014DEDFF7408680A6CB944D9F2148&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=JA_hNlkJOSi0IQc-udYQ4SvUaHA=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 5,
+                        "nome": "T1 Episódio 5 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/244B331739824B47B58B9580C3EF90C9_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 6,
+                        "nome": "T1 Episódio 6 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/899A1ED5B96C4EBF9047B4FD73EDD914_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 7,
+                        "nome": "T1 Episódio 7 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/B1C5F68E237A4B4584C9859D20DCB41E_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
                     }
                 ]
             },
@@ -38,36 +75,99 @@
                 "episodios": [
                     {
                         "num": "E1",
-                        "nome": "Episódio 1",
+                        "nome": " T2 Episódio 1 Cine Rave",
                         "link": "http://awnagk.gviudclrb.com/vod/773583D3111443088517E08ABEA36754_media.mp4",
                         "capa": "https://image.tmdb.org/t/p/w500/6Uo1z56uKnX60JXvYYFWACHR31u.jpg",
                         "sinopse": ""
                     },
                     {
                         "num": 2,
-                        "nome": "Episódio 2",
+                        "nome": "T2 Episódio 2 Cine Rave",
                         "link": "http://awnagk.gviudclrb.com/vod/5EBF8C39E8EA4CD4892B4E40E1A95D1E_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_q3TVktNQwDMj&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=5EBF8C39E8EA4CD4892B4E40E1A95D1E&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=p31vxWOASAFDuIZfgRzxJCmCawk=",
                         "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
                         "sinopse": ""
                     },
                     {
                         "num": 3,
-                        "nome": "Episódio 3",
+                        "nome": "T2 Episódio 3 Cine Rave",
                         "link": "http://awnagk.gviudclrb.com/vod/791D969854054CBF962D9230F1000423_media.mp4",
                         "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
                         "sinopse": ""
                     },
                     {
                         "num": 4,
-                        "nome": "Episódio 4",
+                        "nome": "T2 Episódio 4 Cine Rave",
                         "link": "http://awnagk.gviudclrb.com/vod/39C16B32A6F5436098B01C505A1A4113_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_5S0hWDau5XS&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=39C16B32A6F5436098B01C505A1A4113&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=7VSqsNyxabRlFQ7aGSRsYqQjIdI=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 5,
+                        "nome": "T2 Episódio 5 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/2B83D35AA1BE435F9C3C1187D5EEB981_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 6,
+                        "nome": "T2 Episódio 6 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/86FC1AD144654E208DDD2B8EC86401BC_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_xITNIq8SBpRd&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=86FC1AD144654E208DDD2B8EC86401BC&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=eDUirJWjkazs1iJF3idAt-GhIBw=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 7,
+                        "nome": "T2 Episódio 7 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/86BBD8B00D6D4A8991479DF8B6565E66_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_mU9RCtnacwwt&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=86BBD8B00D6D4A8991479DF8B6565E66&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=jryF67W-uVpE9xSEBeIImG1zywc=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 8,
+                        "nome": "T2 Episódio 8 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/4ED6D2C205D44FD9A476DD7772BBE2CA_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_3ECLHhqRhLRz&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=4ED6D2C205D44FD9A476DD7772BBE2CA&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=tHOsfGOOKNa1roQwy1c9piE5wI8=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 9,
+                        "nome": "T2 Episódio 9 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/EFEDACBEEA0745AEAA7A8FCF042CD203_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 10,
+                        "nome": "T2 Episódio 10 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/E49A09F79C0B4E2D9821E0A0F67E822F_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 11,
+                        "nome": "T2 Episódio 11 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/2FEC546F7D7D4CB197F9F3173B9CC99D_media.mp4",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 12,
+                        "nome": "T2 Episódio 12 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/5F95B1B80F11447FBF42E2FB7BC87E7B_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_DfBstKh0vemc&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=5F95B1B80F11447FBF42E2FB7BC87E7B&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=pe1cH07far5FveTxG_AjfZoGpis=",
+                        "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
+                        "sinopse": ""
+                    },
+                    {
+                        "num": 13,
+                        "nome": "T2 Episódio 13 Cine Rave",
+                        "link": "http://awnagk.gviudclrb.com/vod/E7D54A8A9B1A48848B41DD17EF0C9C56_media.mp4?dev_id=4cd8cedfbdac0f500fc72be7b1643dfc&user_id=426051548&trans_id=8MuJBqU51dH_HG1r7d1gJGU&expired=1743465918&app_id=uvnetmob&app_ver=10500&host=vddclocd.kmj51gtf.com&media_code=E7D54A8A9B1A48848B41DD17EF0C9C56&auth_id=426051548_uvnetmob__0&client_ip=45.187.99.50&Expires=1743465918&KeyName=&Signature=zW-2En22obAem-wTddlJqwIGtPs=",
                         "capa": "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg",
                         "sinopse": ""
                     }
                 ]
             }
         ],
-        "genero": ""
+        "genero": "drama, crime, acao"
     },
     {
         "tipo": "filme",
