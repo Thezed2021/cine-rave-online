@@ -5,35 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
 
-    <% 
-       // Gera o link mágico que termina em .mp4
-       // Ex: https://seusite.vercel.app/content/123/video.mp4?url=...
-       // O "123" ali é aleatório só pra compor a URL
-       const magicUrl = `https://${process.env.VERCEL_URL || 'seusite.vercel.app'}/content/${Date.now()}/video.mp4?url=${encodeURIComponent(video)}`;
-    %>
-
     <meta property="og:title" content="<%= titulo %>">
     <meta property="og:image" content="<%= capa %>">
-    <meta property="og:type" content="video.other"> <meta property="og:video" content="<%= magicUrl %>">
+    <meta property="og:type" content="video.other">
+    
+    <meta property="og:video" content="<%= magicUrl %>">
     <meta property="og:video:url" content="<%= magicUrl %>">
     <meta property="og:video:secure_url" content="<%= magicUrl %>">
     <meta property="og:video:type" content="video/mp4">
 
     <style>
-        body { margin: 0; background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; color: white; font-family: sans-serif; }
-        .msg { text-align: center; padding: 20px; }
-        .btn { background: #E50914; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 10px;}
+        body { margin: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; text-align: center; }
+        .logo { color: #E50914; font-weight: 900; font-size: 24px; margin-bottom: 20px; }
+        .msg { max-width: 80%; line-height: 1.6; }
+        .btn { background: #E50914; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; display: inline-block; }
+        .sub-btn { color: #aaa; font-size: 12px; margin-top: 20px; display: block; text-decoration: none; }
     </style>
 </head>
 <body>
+
+    <div class="logo">CINE RAVE</div>
     
     <div class="msg">
-        <h2>Pronto para assistir</h2>
-        <p>Se o vídeo não abrir automaticamente, clique abaixo:</p>
-        <br>
-        <a href="<%= magicUrl %>" class="btn">ABRIR VÍDEO</a>
-        <br><br>
-        <a href="/" style="color: #aaa; font-size: 12px;">Voltar</a>
+        <h2>Modo Compatibilidade</h2>
+        <p>O Rave deve abrir o vídeo automaticamente.</p>
+        <p>Se nada acontecer, clique no botão abaixo:</p>
+        
+        <a href="<%= magicUrl %>" class="btn">ABRIR VÍDEO AGORA</a>
+        
+        <a href="/" class="sub-btn">Voltar ao Menu</a>
     </div>
 
 </body>
