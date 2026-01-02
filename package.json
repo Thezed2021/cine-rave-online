@@ -1,7 +1,6 @@
 {
-  "name": "streamflix-backend",
+  "name": "cine-rave-backend",
   "version": "1.0.0",
-  "description": "Servidor StreamFlix compatível com Rave",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
