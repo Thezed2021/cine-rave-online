@@ -7,7 +7,7 @@
 
     <meta property="og:site_name" content="Cine Rave">
     <meta property="og:title" content="<%= titulo %>">
-    <meta property="og:description" content="Assista agora.">
+    <meta property="og:description" content="Filme">
     <meta property="og:image" content="<%= capa %>">
     <meta property="og:type" content="video.movie">
     
@@ -21,16 +21,18 @@
         .player-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; }
         video { width: 100%; height: 100%; max-height: 100vh; object-fit: contain; }
         
+        /* Botão Voltar Discreto */
         .top-bar {
             position: absolute; top: 0; left: 0; width: 100%; padding: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            z-index: 10; display: flex;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+            z-index: 10; display: flex; pointer-events: none; /* Deixa clicar através da barra */
         }
         .btn-voltar {
-            background: rgba(0,0,0,0.5); color: white; text-decoration: none;
-            padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3);
-            font-family: sans-serif; font-weight: bold; font-size: 14px;
-            backdrop-filter: blur(5px); display: flex; align-items: center; gap: 8px;
+            pointer-events: auto; /* Reativa o clique só no botão */
+            background: rgba(0,0,0,0.4); color: white; text-decoration: none;
+            padding: 8px 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);
+            font-family: sans-serif; font-size: 14px; backdrop-filter: blur(4px);
+            display: flex; align-items: center; gap: 5px; transition: 0.2s;
         }
         .btn-voltar:hover { background: rgba(255,255,255,0.2); }
     </style>
@@ -39,25 +41,36 @@
 
     <div class="top-bar">
         <a href="/" class="btn-voltar">
-            <span>&#8592;</span> Voltar
+            <span>&#10094;</span> Voltar
         </a>
     </div>
 
     <div class="player-wrapper">
         <video id="vid" controls autoplay playsinline 
                poster="<%= capa %>" 
+               preload="auto"
                referrerpolicy="no-referrer">
             <source src="<%= video %>" type="video/mp4">
-            Seu navegador não suporta a tag de vídeo.
+            Erro ao carregar vídeo.
         </video>
     </div>
 
     <script>
-        // Mantém a tela ligada (Wake Lock) para não desligar no meio do filme
+        // Wake Lock: Impede a tela de desligar
         async function ativarWakeLock() {
             try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch (e) {}
         }
-        document.getElementById('vid').addEventListener('play', ativarWakeLock);
+        const v = document.getElementById('vid');
+        v.addEventListener('play', ativarWakeLock);
+        
+        // Tenta reconectar se cair (Isso pode ajudar no corte de 5min)
+        v.addEventListener('error', function() {
+            console.log("Conexão caiu, tentando recuperar...");
+            const time = v.currentTime;
+            v.load();
+            v.currentTime = time;
+            v.play();
+        });
     </script>
 </body>
 </html>
