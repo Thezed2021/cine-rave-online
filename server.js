@@ -20,18 +20,7 @@ function carregarBanco() {
     } catch (err) { return null; }
 }
 
-// --- ROTA MÁGICA .MP4 (Para enganar o Rave) ---
-app.get('/content/:id/video.mp4', (req, res) => {
-    const { url } = req.query;
-    if (!url) return res.status(404).send("Vídeo não encontrado");
-
-    // Finge ser um arquivo MP4 real
-    res.setHeader('Content-Type', 'video/mp4');
-    res.setHeader('Content-Disposition', 'inline; filename="video.mp4"');
-    
-    res.redirect(url);
-});
-
+// Rota Home
 app.get('/', (req, res) => {
     const catalogo = carregarBanco();
     if (!catalogo) return res.send("Erro: banco.json");
@@ -47,6 +36,7 @@ app.get('/', (req, res) => {
     });
 });
 
+// Rota Detalhes
 app.get('/detalhes', (req, res) => {
     const { id } = req.query;
     const catalogo = carregarBanco();
@@ -54,26 +44,20 @@ app.get('/detalhes', (req, res) => {
     res.render('pre', { item: catalogo[id] });
 });
 
-// --- ROTA ASSISTIR (Corrigida para não crashar) ---
+// --- ROTA ASSISTIR (Modo Link Direto) ---
 app.get('/assistir', (req, res) => {
     const { video, titulo, capa } = req.query;
     
-    // Detecta o domínio atual automaticamente (ex: seusite.vercel.app)
-    const host = req.headers.host; 
-    const protocol = req.secure ? 'https' : 'http'; // Vercel sempre usa https no final
-    const baseUrl = `https://${host}`;
-
-    // Cria o Link Mágico aqui no servidor (Mais seguro)
-    const magicUrl = `${baseUrl}/content/${Date.now()}/video.mp4?url=${encodeURIComponent(video)}`;
-    
-    // Link para abrir direto no app (fallback)
-    const raveDirectLink = `rave://${host}/content/${Date.now()}/video.mp4?url=${encodeURIComponent(video)}`;
+    // Removemos qualquer proxy.
+    // O raveLink agora é rave:// + o link original do vídeo sem modificações
+    // O replace remove o 'https://' para o padrão do Rave
+    const linkLimpo = video.replace(/^https?:\/\//, '');
+    const raveDirectLink = `rave://${linkLimpo}`;
 
     res.render('player', { 
-        video, 
+        video, // Link original (ex: vods1.watchingvs...)
         titulo,
         capa,
-        magicUrl,      // Passa a URL pronta para o EJS
         raveDirectLink 
     });
 });

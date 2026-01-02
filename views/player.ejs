@@ -9,16 +9,16 @@
     <meta property="og:image" content="<%= capa %>">
     <meta property="og:type" content="video.other">
     
-    <meta property="og:video" content="<%= magicUrl %>">
-    <meta property="og:video:url" content="<%= magicUrl %>">
-    <meta property="og:video:secure_url" content="<%= magicUrl %>">
+    <meta property="og:video" content="<%= video %>">
+    <meta property="og:video:url" content="<%= video %>">
+    <meta property="og:video:secure_url" content="<%= video %>">
     <meta property="og:video:type" content="video/mp4">
 
     <style>
         body { margin: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; text-align: center; }
         .logo { color: #E50914; font-weight: 900; font-size: 24px; margin-bottom: 20px; }
         .msg { max-width: 80%; line-height: 1.6; }
-        .btn { background: #E50914; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; display: inline-block; }
+        .btn { background: #E50914; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; display: inline-block; font-size: 18px; }
         .sub-btn { color: #aaa; font-size: 12px; margin-top: 20px; display: block; text-decoration: none; }
     </style>
 </head>
@@ -27,13 +27,18 @@
     <div class="logo">CINE RAVE</div>
     
     <div class="msg">
-        <h2>Modo Compatibilidade</h2>
-        <p>O Rave deve abrir o vídeo automaticamente.</p>
-        <p>Se nada acontecer, clique no botão abaixo:</p>
+        <p>Clique abaixo para abrir o vídeo.</p>
+        <p style="font-size: 12px; color: #666;">O link será enviado diretamente.</p>
         
-        <a href="<%= magicUrl %>" class="btn">ABRIR VÍDEO AGORA</a>
+        <a href="<%= video %>" class="btn">ASSISTIR AGORA</a>
         
-        <a href="/" class="sub-btn">Voltar ao Menu</a>
+        <br>
+        
+        <a href="<%= raveDirectLink %>" style="color: #E50914; margin-top: 20px; display: inline-block;">
+            Forçar abertura no App Rave
+        </a>
+        
+        <a href="/" class="sub-btn">Voltar</a>
     </div>
 
 </body>
