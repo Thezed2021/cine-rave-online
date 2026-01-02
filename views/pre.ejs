@@ -1,105 +1,121 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= item.titulo %></title>
     
-    <meta property="og:title" content="<%= item.titulo %>" />
-    <meta property="og:image" content="<%= item.capa %>" />
-    <meta property="og:type" content="video.movie" />
-    <% 
-        let defaultLink = item.link;
-        if (item.tipo === 'serie' && item.temporadas && item.temporadas[0]) {
-            defaultLink = item.temporadas[0].episodios[0].link;
-        }
-    %>
-    <meta property="og:video" content="<%= defaultLink %>" />
-    <meta property="og:video:type" content="video/mp4" />
-    <meta name="referrer" content="no-referrer">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-        .bg-blur { position: fixed; inset: 0; background-size: cover; background-position: center; background-image: url('<%= item.capa %>'); filter: blur(30px) brightness(0.4); z-index: -1; transform: scale(1.1); }
-        .container { position: relative; z-index: 10; width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
-
-        .poster { width: 160px; height: 240px; object-fit: cover; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid rgba(255,255,255,0.1); margin-top: 30px; margin-bottom: 20px; }
-        h1 { margin: 0 0 15px 0; font-size: clamp(24px, 5vw, 32px); font-weight: 800; text-shadow: 0 2px 5px #000; line-height: 1.1; }
+        :root { --bg-color: #141414; --accent: #E50914; --text: #fff; }
+        body { margin: 0; background-color: var(--bg-color); color: var(--text); font-family: sans-serif; }
         
-        .sinopse-box { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; width: 100%; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); text-align: left; backdrop-filter: blur(10px); }
-        .sinopse-text { font-size: 15px; color: #ddd; line-height: 1.5; margin: 0; max-height: 120px; overflow-y: auto; }
+        /* HEADER SIMPLES */
+        .header { padding: 20px; position: absolute; top: 0; width: 100%; z-index: 10; }
+        .back-btn { color: white; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 30px; width: fit-content; backdrop-filter: blur(5px); }
 
-        .btn-assistir {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: linear-gradient(45deg, #E50914, #ff0055);
-            color: white; text-decoration: none; font-size: 18px; font-weight: bold;
-            padding: 16px 40px; border-radius: 50px; text-transform: uppercase; 
-            letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.3);
-            animation: pulse 2s infinite; margin-bottom: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
-            width: 100%; max-width: 300px; /* Melhor para mobile */
+        /* CAPA DE FUNDO */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(to top, #141414 10%, transparent 100%),
+                        linear-gradient(to right, #141414 10%, transparent 100%),
+                        url('<%= item.capa %>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        .btn-voltar { position: absolute; top: 20px; left: 20px; z-index: 20; background: rgba(0,0,0,0.6); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 30px; font-weight: bold; font-size: 14px; backdrop-filter: blur(10px); }
+        .content { max-width: 800px; margin-bottom: 50px; }
+        .title { font-size: clamp(30px, 5vw, 60px); font-weight: 900; margin-bottom: 15px; text-shadow: 2px 2px 10px black; line-height: 1.1; }
+        .meta { display: flex; gap: 15px; color: #ccc; font-size: 14px; margin-bottom: 20px; font-weight: bold; }
+        .tag { border: 1px solid #ccc; padding: 2px 6px; border-radius: 4px; }
+        .desc { font-size: 16px; color: #ddd; margin-bottom: 30px; line-height: 1.5; max-width: 600px; text-shadow: 1px 1px 5px black; }
 
-        /* SÉRIES */
-        .season-area { width: 100%; text-align: left; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; margin-bottom: 50px; }
-        .season-select { width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #555; border-radius: 8px; font-size: 16px; margin-bottom: 15px; outline: none; }
+        /* BOTÃO DE AÇÃO */
+        .btn-play {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+        .btn-play:hover { transform: scale(1.05); }
+
+        /* LISTA DE EPISÓDIOS (SÉRIES) */
+        .seasons { margin-top: 40px; background: #141414; padding: 20px; }
+        .season-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
         .ep-list { display: flex; flex-direction: column; gap: 10px; }
-        .ep-card { display: flex; align-items: center; background: rgba(255,255,255,0.08); padding: 10px; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
-        .ep-card:active { background: rgba(255,255,255,0.2); transform: scale(0.98); }
-        .ep-card img { width: 90px; height: 55px; object-fit: cover; border-radius: 4px; margin-right: 15px; background: #333; }
-        .ep-title { font-weight: 600; font-size: 14px; line-height: 1.2; }
+        .ep-item { 
+            background: #222; padding: 15px; border-radius: 5px; 
+            display: flex; justify-content: space-between; align-items: center;
+            text-decoration: none; color: white; transition: 0.2s;
+        }
+        .ep-item:hover { background: #333; }
+        .ep-name { font-weight: bold; }
+        .ep-num { color: #888; margin-right: 15px; font-family: monospace; }
+
+        @media (max-width: 768px) {
+            .hero { padding: 20px; align-items: center; justify-content: center; text-align: center; }
+            .content { align-items: center; display: flex; flex-direction: column; margin-bottom: 0; }
+            .hero { background-position: center top; align-items: flex-end; }
+        }
     </style>
 </head>
 <body>
-    <div class="bg-blur"></div>
-    <a href="/" class="btn-voltar">❮ Voltar</a>
 
-    <div class="container">
-        <img class="poster" src="<%= item.capa %>" alt="Capa">
-        <h1><%= item.titulo %></h1>
-        <div class="sinopse-box"><p class="sinopse-text"><%= item.sinopse || 'Sem sinopse.' %></p></div>
-
-        <a id="main-btn" class="btn-assistir" href="/assistir?video=<%= encodeURIComponent(defaultLink) %>&titulo=<%= encodeURIComponent(item.titulo) %>&capa=<%= encodeURIComponent(item.capa) %>">
-            ▶ Assistir Agora
-        </a>
-
-        <% if (item.tipo === 'serie' && item.temporadas) { %>
-        <div class="season-area">
-            <select id="season-select" class="season-select" onchange="mudarTemporada()">
-                <% item.temporadas.forEach((temp, index) => { %>
-                    <option value="<%= index %>">Temporada <%= temp.numero %></option>
-                <% }) %>
-            </select>
-            <div id="episodes-container" class="ep-list"></div>
-        </div>
-        <% } %>
+    <div class="header">
+        <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
 
-    <script>
-        const itemData = <%- JSON.stringify(item) %>;
-        function renderEpisodios(seasonIndex) {
-            const container = document.getElementById('episodes-container');
-            container.innerHTML = '';
-            if(!itemData.temporadas || !itemData.temporadas[seasonIndex]) return;
-            itemData.temporadas[seasonIndex].episodios.forEach(ep => {
-                const div = document.createElement('div');
-                div.className = 'ep-card';
-                div.onclick = function() {
-                    const url = `/assistir?video=${encodeURIComponent(ep.link)}&titulo=${encodeURIComponent(itemData.titulo + ' - ' + ep.nome)}&capa=${encodeURIComponent(itemData.capa)}`;
-                    const btn = document.getElementById('main-btn');
-                    btn.href = url;
-                    btn.innerText = "▶ Tocar: " + ep.num;
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Sobe para o botão
-                };
-                div.innerHTML = `<img src="${ep.capa || itemData.capa}" onerror="this.src='${itemData.capa}'"><div class="ep-title">${ep.num}. ${ep.nome}</div>`;
-                container.appendChild(div);
-            });
-        }
-        function mudarTemporada() { renderEpisodios(document.getElementById('season-select').value); }
-        if(itemData.tipo === 'serie') renderEpisodios(0);
-    </script>
+    <div class="hero">
+        <div class="content">
+            <div class="title"><%= item.titulo %></div>
+            
+            <div class="meta">
+                <% if(item.tipo === 'filme') { %> <span class="tag">FILME</span> <% } else { %> <span class="tag">SÉRIE</span> <% } %>
+                <% if(item.genero) { %> <span><%= item.genero %></span> <% } %>
+            </div>
+
+            <div class="desc"><%= item.sinopse %></div>
+
+            <% if (item.tipo === 'filme') { %>
+                <a href="<%= item.link %>" class="btn-play">
+                    <i class="fas fa-play"></i> ASSISTIR FILME
+                </a>
+            <% } %>
+
+        </div>
+    </div>
+
+    <% if (item.tipo === 'serie' && item.temporadas) { %>
+        <div class="seasons">
+            <% item.temporadas.forEach(temp => { %>
+                <div class="season-title">Temporada <%= temp.numero %></div>
+                <div class="ep-list">
+                    <% temp.episodios.forEach(ep => { %>
+                        <a href="<%= ep.link %>" class="ep-item">
+                            <div>
+                                <span class="ep-num"><%= ep.num %></span>
+                                <span class="ep-name"><%= ep.nome %></span>
+                            </div>
+                            <i class="fas fa-play-circle" style="color: var(--accent);"></i>
+                        </a>
+                    <% }) %>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+
 </body>
 </html>
