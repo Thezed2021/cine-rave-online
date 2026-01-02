@@ -5,72 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
 
-    <meta property="og:site_name" content="Cine Rave">
+    <% 
+       // Gera o link mágico que termina em .mp4
+       // Ex: https://seusite.vercel.app/content/123/video.mp4?url=...
+       // O "123" ali é aleatório só pra compor a URL
+       const magicUrl = `https://${process.env.VERCEL_URL || 'seusite.vercel.app'}/content/${Date.now()}/video.mp4?url=${encodeURIComponent(video)}`;
+    %>
+
     <meta property="og:title" content="<%= titulo %>">
-    <meta property="og:description" content="Filme">
     <meta property="og:image" content="<%= capa %>">
-    <meta property="og:type" content="video.movie">
-    
-    <meta property="og:video" content="<%= video %>">
-    <meta property="og:video:url" content="<%= video %>">
-    <meta property="og:video:secure_url" content="<%= video %>">
+    <meta property="og:type" content="video.other"> <meta property="og:video" content="<%= magicUrl %>">
+    <meta property="og:video:url" content="<%= magicUrl %>">
+    <meta property="og:video:secure_url" content="<%= magicUrl %>">
     <meta property="og:video:type" content="video/mp4">
 
     <style>
-        body { margin: 0; background: #000; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        .player-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; }
-        video { width: 100%; height: 100%; max-height: 100vh; object-fit: contain; }
-        
-        /* Botão Voltar Discreto */
-        .top-bar {
-            position: absolute; top: 0; left: 0; width: 100%; padding: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
-            z-index: 10; display: flex; pointer-events: none; /* Deixa clicar através da barra */
-        }
-        .btn-voltar {
-            pointer-events: auto; /* Reativa o clique só no botão */
-            background: rgba(0,0,0,0.4); color: white; text-decoration: none;
-            padding: 8px 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);
-            font-family: sans-serif; font-size: 14px; backdrop-filter: blur(4px);
-            display: flex; align-items: center; gap: 5px; transition: 0.2s;
-        }
-        .btn-voltar:hover { background: rgba(255,255,255,0.2); }
+        body { margin: 0; background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; color: white; font-family: sans-serif; }
+        .msg { text-align: center; padding: 20px; }
+        .btn { background: #E50914; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 10px;}
     </style>
 </head>
 <body>
-
-    <div class="top-bar">
-        <a href="/" class="btn-voltar">
-            <span>&#10094;</span> Voltar
-        </a>
+    
+    <div class="msg">
+        <h2>Pronto para assistir</h2>
+        <p>Se o vídeo não abrir automaticamente, clique abaixo:</p>
+        <br>
+        <a href="<%= magicUrl %>" class="btn">ABRIR VÍDEO</a>
+        <br><br>
+        <a href="/" style="color: #aaa; font-size: 12px;">Voltar</a>
     </div>
 
-    <div class="player-wrapper">
-        <video id="vid" controls autoplay playsinline 
-               poster="<%= capa %>" 
-               preload="auto"
-               referrerpolicy="no-referrer">
-            <source src="<%= video %>" type="video/mp4">
-            Erro ao carregar vídeo.
-        </video>
-    </div>
-
-    <script>
-        // Wake Lock: Impede a tela de desligar
-        async function ativarWakeLock() {
-            try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch (e) {}
-        }
-        const v = document.getElementById('vid');
-        v.addEventListener('play', ativarWakeLock);
-        
-        // Tenta reconectar se cair (Isso pode ajudar no corte de 5min)
-        v.addEventListener('error', function() {
-            console.log("Conexão caiu, tentando recuperar...");
-            const time = v.currentTime;
-            v.load();
-            v.currentTime = time;
-            v.play();
-        });
-    </script>
 </body>
 </html>
