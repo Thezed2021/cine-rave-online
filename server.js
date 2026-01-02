@@ -20,15 +20,12 @@ function carregarBanco() {
     } catch (err) { return null; }
 }
 
-// Rota Home
 app.get('/', (req, res) => {
     const catalogo = carregarBanco();
     if (!catalogo) return res.send("Erro: banco.json");
-    
     catalogo.forEach((item, index) => item.originalIndex = index);
     const destaques = catalogo.filter(i => i.destaque);
     const destaque = destaques.length > 0 ? destaques[Math.floor(Math.random() * destaques.length)] : catalogo[0];
-
     res.render('index', { 
         filmes: catalogo.filter(i => i.tipo === 'filme'), 
         series: catalogo.filter(i => i.tipo === 'serie'), 
@@ -36,7 +33,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// Rota Detalhes
 app.get('/detalhes', (req, res) => {
     const { id } = req.query;
     const catalogo = carregarBanco();
@@ -44,18 +40,17 @@ app.get('/detalhes', (req, res) => {
     res.render('pre', { item: catalogo[id] });
 });
 
-// --- ROTA ASSISTIR (Modo Link Direto) ---
+// --- ROTA ASSISTIR (Modo Metadata + Link Bruto) ---
 app.get('/assistir', (req, res) => {
     const { video, titulo, capa } = req.query;
     
-    // Removemos qualquer proxy.
-    // O raveLink agora é rave:// + o link original do vídeo sem modificações
-    // O replace remove o 'https://' para o padrão do Rave
+    // Gera link rave:// direto para o arquivo mp4
+    // Isso tenta abrir o player nativo do Rave
     const linkLimpo = video.replace(/^https?:\/\//, '');
     const raveDirectLink = `rave://${linkLimpo}`;
 
     res.render('player', { 
-        video, // Link original (ex: vods1.watchingvs...)
+        video, 
         titulo,
         capa,
         raveDirectLink 

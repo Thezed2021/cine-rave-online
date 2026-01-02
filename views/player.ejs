@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
 
+    <meta property="og:site_name" content="Cine Rave">
     <meta property="og:title" content="<%= titulo %>">
+    <meta property="og:description" content="Assista agora">
     <meta property="og:image" content="<%= capa %>">
     <meta property="og:type" content="video.other">
     
@@ -16,30 +18,20 @@
 
     <style>
         body { margin: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; text-align: center; }
-        .logo { color: #E50914; font-weight: 900; font-size: 24px; margin-bottom: 20px; }
-        .msg { max-width: 80%; line-height: 1.6; }
         .btn { background: #E50914; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; display: inline-block; font-size: 18px; }
         .sub-btn { color: #aaa; font-size: 12px; margin-top: 20px; display: block; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div class="logo">CINE RAVE</div>
+    <h2><%= titulo %></h2>
+    <img src="<%= capa %>" style="width: 150px; border-radius: 10px; margin: 20px 0;">
     
-    <div class="msg">
-        <p>Clique abaixo para abrir o vídeo.</p>
-        <p style="font-size: 12px; color: #666;">O link será enviado diretamente.</p>
-        
-        <a href="<%= video %>" class="btn">ASSISTIR AGORA</a>
-        
-        <br>
-        
-        <a href="<%= raveDirectLink %>" style="color: #E50914; margin-top: 20px; display: inline-block;">
-            Forçar abertura no App Rave
-        </a>
-        
-        <a href="/" class="sub-btn">Voltar</a>
-    </div>
+    <br>
+    
+    <a href="<%= video %>" class="btn">CLIQUE PARA TOCAR</a>
+    
+    <a href="/" class="sub-btn">Voltar</a>
 
 </body>
 </html>

@@ -4,55 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= item.titulo %></title>
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <style>
         :root { --bg-color: #141414; --accent: #E50914; --text: #fff; }
         body { margin: 0; background-color: var(--bg-color); color: var(--text); font-family: sans-serif; }
         
-        /* HEADER SIMPLES */
         .header { padding: 20px; position: absolute; top: 0; width: 100%; z-index: 10; }
-        .back-btn { color: white; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 30px; width: fit-content; backdrop-filter: blur(5px); }
+        .back-btn { color: white; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 30px; backdrop-filter: blur(5px); }
 
-        /* CAPA DE FUNDO */
         .hero { 
             height: 100vh; 
             background: linear-gradient(to top, #141414 10%, transparent 100%),
                         linear-gradient(to right, #141414 10%, transparent 100%),
                         url('<%= item.capa %>');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: flex-end;
-            padding: 30px;
+            background-size: cover; background-position: center;
+            display: flex; align-items: flex-end; padding: 30px;
         }
 
         .content { max-width: 800px; margin-bottom: 50px; }
         .title { font-size: clamp(30px, 5vw, 60px); font-weight: 900; margin-bottom: 15px; text-shadow: 2px 2px 10px black; line-height: 1.1; }
         .meta { display: flex; gap: 15px; color: #ccc; font-size: 14px; margin-bottom: 20px; font-weight: bold; }
         .tag { border: 1px solid #ccc; padding: 2px 6px; border-radius: 4px; }
-        .desc { font-size: 16px; color: #ddd; margin-bottom: 30px; line-height: 1.5; max-width: 600px; text-shadow: 1px 1px 5px black; }
+        .desc { font-size: 16px; color: #ddd; margin-bottom: 30px; line-height: 1.5; text-shadow: 1px 1px 5px black; }
 
-        /* BOTÃO DE AÇÃO */
         .btn-play {
-            background-color: var(--accent);
-            color: white;
-            padding: 15px 40px;
-            font-size: 20px;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.2s;
+            background-color: var(--accent); color: white; padding: 15px 40px;
+            font-size: 20px; font-weight: bold; border: none; border-radius: 4px;
+            cursor: pointer; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 10px; transition: transform 0.2s;
         }
         .btn-play:hover { transform: scale(1.05); }
 
-        /* LISTA DE EPISÓDIOS (SÉRIES) */
         .seasons { margin-top: 40px; background: #141414; padding: 20px; }
         .season-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
         .ep-list { display: flex; flex-direction: column; gap: 10px; }
@@ -64,16 +46,14 @@
         .ep-item:hover { background: #333; }
         .ep-name { font-weight: bold; }
         .ep-num { color: #888; margin-right: 15px; font-family: monospace; }
-
+        
         @media (max-width: 768px) {
             .hero { padding: 20px; align-items: center; justify-content: center; text-align: center; }
-            .content { align-items: center; display: flex; flex-direction: column; margin-bottom: 0; }
-            .hero { background-position: center top; align-items: flex-end; }
+            .content { align-items: center; display: flex; flex-direction: column; }
         }
     </style>
 </head>
 <body>
-
     <div class="header">
         <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
@@ -81,20 +61,17 @@
     <div class="hero">
         <div class="content">
             <div class="title"><%= item.titulo %></div>
-            
             <div class="meta">
                 <% if(item.tipo === 'filme') { %> <span class="tag">FILME</span> <% } else { %> <span class="tag">SÉRIE</span> <% } %>
                 <% if(item.genero) { %> <span><%= item.genero %></span> <% } %>
             </div>
-
             <div class="desc"><%= item.sinopse %></div>
 
             <% if (item.tipo === 'filme') { %>
-                <a href="<%= item.link %>" class="btn-play">
+                <a href="/assistir?video=<%= encodeURIComponent(item.link) %>&titulo=<%= encodeURIComponent(item.titulo) %>&capa=<%= encodeURIComponent(item.capa) %>" class="btn-play">
                     <i class="fas fa-play"></i> ASSISTIR FILME
                 </a>
             <% } %>
-
         </div>
     </div>
 
@@ -104,11 +81,8 @@
                 <div class="season-title">Temporada <%= temp.numero %></div>
                 <div class="ep-list">
                     <% temp.episodios.forEach(ep => { %>
-                        <a href="<%= ep.link %>" class="ep-item">
-                            <div>
-                                <span class="ep-num"><%= ep.num %></span>
-                                <span class="ep-name"><%= ep.nome %></span>
-                            </div>
+                        <a href="/assistir?video=<%= encodeURIComponent(ep.link) %>&titulo=<%= encodeURIComponent(ep.nome) %>&capa=<%= encodeURIComponent(ep.capa || item.capa) %>" class="ep-item">
+                            <div><span class="ep-num"><%= ep.num %></span><span class="ep-name"><%= ep.nome %></span></div>
                             <i class="fas fa-play-circle" style="color: var(--accent);"></i>
                         </a>
                     <% }) %>
@@ -116,6 +90,5 @@
             <% }) %>
         </div>
     <% } %>
-
 </body>
 </html>
