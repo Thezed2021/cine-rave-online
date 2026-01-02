@@ -5,55 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
 
-    <% 
-       // Gera URL de Proxy para o Rave
-       const proxyUrl = `https://${process.env.VERCEL_URL || 'seusite.vercel.app'}/video-redirect?url=${encodeURIComponent(video)}`;
-    %>
-
-    <meta property="og:title" content="<%= titulo %>">
     <meta property="og:site_name" content="Cine Rave">
+    <meta property="og:title" content="<%= titulo %>">
     <meta property="og:description" content="Assista agora.">
     <meta property="og:image" content="<%= capa %>">
     <meta property="og:type" content="video.movie">
     
-    <meta property="og:video" content="<%= proxyUrl %>">
-    <meta property="og:video:url" content="<%= proxyUrl %>">
-    <meta property="og:video:secure_url" content="<%= proxyUrl %>">
+    <meta property="og:video" content="<%= video %>">
+    <meta property="og:video:url" content="<%= video %>">
+    <meta property="og:video:secure_url" content="<%= video %>">
     <meta property="og:video:type" content="video/mp4">
-    <meta property="og:video:width" content="1280">
-    <meta property="og:video:height" content="720">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoObject",
-      "name": "<%= titulo %>",
-      "description": "Filme no Cine Rave",
-      "thumbnailUrl": "<%= capa %>",
-      "uploadDate": "2024-01-01T00:00:00+00:00",
-      "contentUrl": "<%= video %>",
-      "embedUrl": "<%= proxyUrl %>"
-    }
-    </script>
 
     <style>
         body { margin: 0; background: #000; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        .player-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; }
-        video { width: 100%; height: 100%; object-fit: contain; }
-        .top-bar { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 10; display: flex; gap: 10px; }
-        .btn { background: rgba(0,0,0,0.5); color: white; text-decoration: none; padding: 8px 15px; border-radius: 20px; border: 1px solid white; font-family: sans-serif; }
-        .btn-rave { background: #E50914; border: none; }
+        .player-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; }
+        video { width: 100%; height: 100%; max-height: 100vh; object-fit: contain; }
+        
+        .top-bar {
+            position: absolute; top: 0; left: 0; width: 100%; padding: 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 10; display: flex;
+        }
+        .btn-voltar {
+            background: rgba(0,0,0,0.5); color: white; text-decoration: none;
+            padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3);
+            font-family: sans-serif; font-weight: bold; font-size: 14px;
+            backdrop-filter: blur(5px); display: flex; align-items: center; gap: 8px;
+        }
+        .btn-voltar:hover { background: rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
+
     <div class="top-bar">
-        <a href="/" class="btn">Voltar</a>
-        <a href="<%= raveLink %>" class="btn btn-rave">Abrir no Rave</a>
+        <a href="/" class="btn-voltar">
+            <span>&#8592;</span> Voltar
+        </a>
     </div>
+
     <div class="player-wrapper">
-        <video id="vid" controls autoplay playsinline poster="<%= capa %>">
+        <video id="vid" controls autoplay playsinline 
+               poster="<%= capa %>" 
+               referrerpolicy="no-referrer">
             <source src="<%= video %>" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
         </video>
     </div>
+
+    <script>
+        // Mantém a tela ligada (Wake Lock) para não desligar no meio do filme
+        async function ativarWakeLock() {
+            try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch (e) {}
+        }
+        document.getElementById('vid').addEventListener('play', ativarWakeLock);
+    </script>
 </body>
 </html>
