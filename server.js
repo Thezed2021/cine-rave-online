@@ -11,7 +11,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Função para ler o banco
 function carregarBanco() {
     try {
         const caminhoBanco = path.join(__dirname, 'banco.json');
@@ -21,67 +20,57 @@ function carregarBanco() {
     } catch (err) { return null; }
 }
 
-// --- ROTA M3U8 (A TENTATIVA DE BURLAR OS 5 MIN) ---
+// ROTA 1: Playlist M3U8 (Para links piratas comuns)
 app.get('/playlist.m3u8', (req, res) => {
     const { url } = req.query;
     if (!url) return res.status(404).send("#EXTM3U");
-
-    // Headers para evitar cache e forçar stream
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
-    res.setHeader('Content-Disposition', 'inline; filename="video.m3u8"');
-
-    const conteudo = `#EXTM3U
-#EXT-X-VERSION:3
-#EXT-X-TARGETDURATION:10
-#EXT-X-MEDIA-SEQUENCE:0
-#EXTINF:-1, Cine Rave Video
-${url}`;
-
-    res.send(conteudo);
+    res.send(`#EXTM3U\n#EXTINF:-1, Stream\n${url}`);
 });
 
-// --- ROTAS DE PÁGINAS ---
 app.get('/', (req, res) => {
     const catalogo = carregarBanco();
-    if (!catalogo) return res.send("Erro: banco.json não carregado.");
-    
-    catalogo.forEach((item, index) => item.originalIndex = index);
-    const destaques = catalogo.filter(i => i.destaque);
-    const destaque = destaques.length > 0 ? destaques[Math.floor(Math.random() * destaques.length)] : catalogo[0];
-
     res.render('index', { 
         filmes: catalogo.filter(i => i.tipo === 'filme'), 
         series: catalogo.filter(i => i.tipo === 'serie'), 
-        destaque 
+        destaque: catalogo[0] 
     });
 });
 
 app.get('/detalhes', (req, res) => {
     const { id } = req.query;
     const catalogo = carregarBanco();
-    if (!catalogo || !catalogo[id]) return res.redirect('/');
     res.render('pre', { item: catalogo[id] });
 });
 
+// ROTA PLAYER INTELIGENTE
 app.get('/assistir', (req, res) => {
     const { video, titulo, capa } = req.query;
-    
-    // Constrói a URL da playlist baseada no domínio atual
-    const host = req.headers.host; 
+    const host = req.headers.host;
     const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const m3u8Url = `${protocol}://${host}/playlist.m3u8?url=${encodeURIComponent(video)}`;
     
-    // Link profundo para o Rave
-    const raveLink = `rave://${host}/playlist.m3u8?url=${encodeURIComponent(video)}`;
+    // ESTRATÉGIA "FILMES P K":
+    // 1. Se for Google Drive, manda o link ORIGINAL. O Rave ama Google Drive.
+    // 2. Se for outro, tenta mascarar com M3U8.
+    
+    let videoUrlFinal = video;
+    let isDrive = video.includes("drive.google.com");
+
+    if (!isDrive) {
+        // Se não for drive, tentamos a playlist para evitar o corte de 5min
+        videoUrlFinal = `${protocol}://${host}/playlist.m3u8?url=${encodeURIComponent(video)}`;
+    }
+
+    // Link profundo para o Rave (Remove https://)
+    const raveLink = `rave://${videoUrlFinal.replace(/^https?:\/\//, '')}`;
 
     res.render('player', { 
-        video, 
+        video: videoUrlFinal, // URL processada
+        linkOriginal: video,  // URL crua (backup)
         titulo, 
         capa, 
-        m3u8Url, 
         raveLink,
-        urlAtual: `${protocol}://${host}${req.originalUrl}`
+        isDrive
     });
 });
 
