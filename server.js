@@ -11,6 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Função para ler o banco
 function carregarBanco() {
     try {
         const caminhoBanco = path.join(__dirname, 'banco.json');
@@ -20,26 +21,31 @@ function carregarBanco() {
     } catch (err) { return null; }
 }
 
-// --- ROTA 1: GERADOR DE PLAYLIST M3U8 (A SOLUÇÃO) ---
-// Isso força o Rave a tratar o arquivo como streaming contínuo
+// --- ROTA M3U8 (A TENTATIVA DE BURLAR OS 5 MIN) ---
 app.get('/playlist.m3u8', (req, res) => {
     const { url } = req.query;
     if (!url) return res.status(404).send("#EXTM3U");
 
-    // Cria uma playlist falsa apontando para o arquivo original
-    const conteudoM3U8 = `#EXTM3U
-#EXTINF:-1, Cine Rave Movie
+    // Headers para evitar cache e forçar stream
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
+    res.setHeader('Content-Disposition', 'inline; filename="video.m3u8"');
+
+    const conteudo = `#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:10
+#EXT-X-MEDIA-SEQUENCE:0
+#EXTINF:-1, Cine Rave Video
 ${url}`;
 
-    res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
-    res.setHeader('Content-Disposition', 'inline; filename="playlist.m3u8"');
-    res.send(conteudoM3U8);
+    res.send(conteudo);
 });
 
-// --- ROTA 2: HOME ---
+// --- ROTAS DE PÁGINAS ---
 app.get('/', (req, res) => {
     const catalogo = carregarBanco();
-    if (!catalogo) return res.send("Erro: banco.json");
+    if (!catalogo) return res.send("Erro: banco.json não carregado.");
+    
     catalogo.forEach((item, index) => item.originalIndex = index);
     const destaques = catalogo.filter(i => i.destaque);
     const destaque = destaques.length > 0 ? destaques[Math.floor(Math.random() * destaques.length)] : catalogo[0];
@@ -51,7 +57,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// --- ROTA 3: DETALHES ---
 app.get('/detalhes', (req, res) => {
     const { id } = req.query;
     const catalogo = carregarBanco();
@@ -59,27 +64,24 @@ app.get('/detalhes', (req, res) => {
     res.render('pre', { item: catalogo[id] });
 });
 
-// --- ROTA 4: ASSISTIR (PLAYER) ---
 app.get('/assistir', (req, res) => {
     const { video, titulo, capa } = req.query;
     
-    // Tenta pegar o domínio atual de forma segura
-    let baseUrl = `https://${req.headers.host}`;
-    if (!req.headers.host) baseUrl = "https://cine-rave.vercel.app"; // Fallback de segurança
-
-    // Gera o link para nossa playlist mágica
-    const m3u8Url = `${baseUrl}/playlist.m3u8?url=${encodeURIComponent(video)}`;
+    // Constrói a URL da playlist baseada no domínio atual
+    const host = req.headers.host; 
+    const protocol = req.headers['x-forwarded-proto'] || 'https';
+    const m3u8Url = `${protocol}://${host}/playlist.m3u8?url=${encodeURIComponent(video)}`;
     
-    // Link direto para o Rave (Deep Link)
-    // Remove o https:// para o padrão do Rave
-    const raveLink = `rave://${m3u8Url.replace(/^https?:\/\//, '')}`;
+    // Link profundo para o Rave
+    const raveLink = `rave://${host}/playlist.m3u8?url=${encodeURIComponent(video)}`;
 
     res.render('player', { 
-        video, // Link original
-        titulo,
-        capa,
-        m3u8Url, // Link da playlist
-        raveLink 
+        video, 
+        titulo, 
+        capa, 
+        m3u8Url, 
+        raveLink,
+        urlAtual: `${protocol}://${host}${req.originalUrl}`
     });
 });
 
