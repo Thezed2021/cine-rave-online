@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+
+    <meta property="og:site_name" content="Cine Rave">
+    <meta property="og:title" content="<%= titulo %>">
+    <meta property="og:description" content="Assista em HD">
+    <meta property="og:image" content="<%= capa %>">
+    
+    <meta property="og:type" content="video.other">
+    <meta property="og:video" content="<%= m3u8Url %>">
+    <meta property="og:video:url" content="<%= m3u8Url %>">
+    <meta property="og:video:secure_url" content="<%= m3u8Url %>">
+    <meta property="og:video:type" content="application/x-mpegURL">
+
+    <style>
+        body { margin: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; text-align: center; }
+        .logo { color: #E50914; font-weight: 900; font-size: 24px; margin-bottom: 20px; }
+        .capa-box { width: 160px; height: 240px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); margin-bottom: 20px; }
+        .capa-box img { width: 100%; height: 100%; object-fit: cover; }
+        .btn { background: #E50914; color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .btn:hover { transform: scale(1.05); }
+        .sub-btn { color: #666; font-size: 13px; margin-top: 30px; text-decoration: none; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="logo">CINE RAVE</div>
+
+    <div class="capa-box">
+        <img src="<%= capa %>" alt="Capa">
+    </div>
+    
+    <h2 style="max-width: 90%; margin: 0 0 20px 0;"><%= titulo %></h2>
+
+    <a href="<%= raveLink %>" class="btn">
+        <i class="fas fa-play"></i> TOCAR AGORA
+    </a>
+    
+    <a href="/" class="sub-btn">Voltar ao Menu</a>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cine Rave</title>
+    
+    <meta property="og:site_name" content="Cine Rave">
+    <meta property="og:title" content="Cine Rave">
+    <meta property="og:description" content="Assista filmes e séries com seus amigos.">
+    <meta property="og:image" content="<%= destaque ? destaque.capa : '' %>">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root { --bg-color: #141414; --sidebar-bg: #000000; --accent: #E50914; --text-main: #ffffff; }
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; background-color: var(--bg-color); color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding-top: env(safe-area-inset-top); }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #141414; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* HEADER MOBILE */
+        .mobile-header { display: none; background: #000; padding: 15px 20px; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; }
+        .mobile-logo { color: var(--accent); font-weight: 800; font-size: 20px; }
+        .hamburger-btn { background: none; border: none; color: white; font-size: 24px; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 80px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 300; transition: 0.3s; border-right: 1px solid #222; }
+        .sidebar.active { transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.7); }
+        .logo-pc { display: none; color: var(--accent); font-weight: 800; font-size: 22px; margin-bottom: 40px; }
+        .menu-item { color: #b3b3b3; font-size: 16px; margin-bottom: 25px; display: flex; align-items: center; cursor: pointer; width: 100%; padding: 12px; justify-content: center; }
+        .menu-item:hover { color: white; background: #1a1a1a; }
+        .menu-text { display: none; margin-left: 15px; }
+        .close-sidebar-btn { display: none; align-self: flex-end; margin: 10px 20px; font-size: 28px; }
+
+        @media (min-width: 769px) { 
+            .sidebar:hover { width: 240px; align-items: flex-start; padding-left: 20px; } 
+            .sidebar:hover .menu-item { justify-content: flex-start; }
+            .logo-pc { display: block; } 
+            .sidebar:hover .menu-text { display: inline-block; } 
+            .main-content { margin-left: 80px; width: calc(100% - 80px); }
+        }
+        @media (max-width: 768px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); width: 85%; align-items: flex-start; padding-left: 25px; } 
+            .sidebar .menu-item { justify-content: flex-start; }
+            .sidebar .menu-text { display: inline-block; }
+            .sidebar.active .close-sidebar-btn { display: block; } 
+            .sidebar.active .logo-pc { display: block; margin-bottom: 20px; }
+            .main-content { margin-left: 0; width: 100%; } 
+        }
+
+        /* CONTEUDO */
+        .hero { height: 60vh; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-color), transparent 90%); }
+        .hero-content { position: relative; z-index: 2; padding-left: 4%; max-width: 800px; }
+        .hero-title { font-size: clamp(28px, 6vw, 60px); font-weight: 900; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-desc { font-size: clamp(14px, 2.5vw, 18px); color: #ddd; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .btn-hero { padding: 10px 30px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; background: white; color: black; display: inline-flex; align-items: center; gap: 10px; }
+
+        /* ALERT BOX */
+        .alert-section { padding: 0 4%; margin-top: 20px; margin-bottom: 10px; }
+        .alert-box { background: #252525; border-left: 4px solid var(--accent); padding: 15px 20px; border-radius: 6px; display: flex; align-items: center; gap: 15px; }
+        .alert-text { font-size: 14px; color: #ddd; }
+
+        /* CARDS */
+        .category-section { padding: 20px 4%; }
+        .category-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; }
+        .cards-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; }
+        .card { min-width: 140px; height: 210px; border-radius: 6px; overflow: hidden; position: relative; cursor: pointer; flex-shrink: 0; background: #222; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        
+        @media (max-width: 768px) { .hero { height: 50vh; } .card { min-width: 120px; height: 180px; } }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="mobile-logo">CINE RAVE</div>
+        <button class="hamburger-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-sidebar-btn" onclick="toggleMenu()">&times;</div>
+        <div class="logo-pc">CINE RAVE</div>
+        <div style="width: 100%; margin-top: 20px;">
+            <div class="menu-item" onclick="alert('Feito para facilitar a vida no Rave!')">
+                <i class="fas fa-info-circle"></i> <span class="menu-text">Sobre Nós</span>
+            </div>
+            <div class="menu-item" onclick="window.open('https://discord.gg/JZrAHZ4e')">
+                <i class="fab fa-discord"></i> <span class="menu-text">Discord</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <% if (destaque) { %>
+        <div class="hero" style="background-image: url('<%= destaque.capa %>');">
+            <div class="hero-content">
+                <div class="hero-title"><%= destaque.titulo %></div>
+                <div class="hero-desc"><%= destaque.sinopse %></div>
+                <button class="btn-hero" onclick="irParaDetalhes('<%= destaque.originalIndex %>')">
+                    <i class="fas fa-play"></i> Assistir
+                </button>
+            </div>
+        </div>
+        <% } %>
+
+        <div class="alert-section">
+            <div class="alert-box">
+                <i class="fas fa-bell" style="color: var(--accent);"></i>
+                <div class="alert-text"><strong>Aviso:</strong> Para assistir com amigos, recomendamos usar o app oficial Rave.</div>
+            </div>
+        </div>
+
+        <% if (filmes.length > 0) { %>
+        <div class="category-section">
+            <div class="category-title">Filmes</div>
+            <div class="cards-row">
+                <% filmes.forEach(filme => { %>
+                    <div class="card" onclick="irParaDetalhes('<%= filme.originalIndex %>')">
+                        <img src="<%= filme.capa %>" loading="lazy">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+
+        <% if (series.length > 0) { %>
+        <div class="category-section">
+            <div class="category-title">Séries</div>
+            <div class="cards-row">
+                <% series.forEach(serie => { %>
+                    <div class="card" onclick="irParaDetalhes('<%= serie.originalIndex %>')">
+                        <img src="<%= serie.capa %>" loading="lazy">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+        function irParaDetalhes(id) { window.location.href = `/detalhes?id=${id}`; }
+    </script>
+</body>
+</html>
